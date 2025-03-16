@@ -9,8 +9,9 @@ export default createGlobalStyle`
 
 }
 body{
-    background: ${({theme}) =>theme.backgroundColor};
+    background: ${({theme}) =>theme.colors.background};
     font-size: 16px;
+    color: ${({theme}) => theme.colors.gray[900]} //colchetes pois se o nome de uma chave começa com número tem que ser em []
 }
 button {
     cursor: pointer;

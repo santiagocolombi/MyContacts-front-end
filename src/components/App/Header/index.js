@@ -1,5 +1,5 @@
 import { Container,InputSearchContainer } from "../styles";
-import logo from '../../../assets/images/Frame 1.svg'
+import logo from '../../../assets/images/MyContacts.svg'
 
 export  function Header(){
     return (

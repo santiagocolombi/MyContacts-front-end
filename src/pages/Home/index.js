@@ -4,11 +4,12 @@ import arrow from '../../assets/images/icons/chevron-up.svg';
 import edit from '../../assets/images/icons/🦆 icon _edit_ (1).svg';
 import trash from '../../assets/images/icons/trash-2.svg';
 import Modal from "../../components/PageHeader/Modal";
+import Loader from "../../components/Loader";
 
 export default function Home() {
   return (
     <Container>
-        <Modal></Modal>
+
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar contato" />
       </InputSearchContainer>

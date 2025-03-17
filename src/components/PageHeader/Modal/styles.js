@@ -22,6 +22,7 @@ max-width: 450px;
 width: 100%;
     h1{
         font-size: 22px;
+        color: ${({theme, danger}) => danger ? theme.colors.danger.main : theme.colors.gray[900] };
     }
     p{
         margin-top: 8px;
@@ -38,6 +39,6 @@ justify-content: flex-end;
     border: none;
     font-size: 16px;
     margin-right: 8px;
-    color: {({theme}) => theme: .colors.gray[200]};
+    color: ${({theme}) => theme.colors.gray[200] };
 }
 `;

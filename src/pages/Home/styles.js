@@ -107,18 +107,19 @@ export const Card = styled.div`
 `;
 export const InputSearchContainer = styled.div`
     width:100%;
-  input {
-    width:100%;
-    background:#fff;
-    border: none;
+    input {
+    width: 100%;
+    padding: 8px 16px;
     border-radius: 25px;
-    height: 50px;
-    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.04));
-    outline: 0;
-    padding: 0 16px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: ${({ isModalOpen }) => (isModalOpen ? "rgba(0, 0, 0, 0.2)" : "#FFF")};
+    color: ${({ isModalOpen }) => (isModalOpen ? "#FFF" : "#000")};
+    transition: background 0.3s ease-in-out;
 
-    &::placeholder{
-        color: #BCBCBC;
+    &::placeholder {
+      color: ${({ isModalOpen }) => (isModalOpen ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.5)")};
     }
-    }
+  }
 `;

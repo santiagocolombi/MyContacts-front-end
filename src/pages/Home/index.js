@@ -10,6 +10,12 @@ import { useEffect, useState } from "react";
 export default function Home() {
     const [contacts, setContacts] = useState([])  //conectando a api
     const [orderBy, setOrderBy] = useState('asc')
+    const [searchTherm, setSearchTherm] = useState('')
+
+    const filteredContacts = contacts.filter((contact) => (
+        contact.name.toLowerCase().includes(searchTherm.toLowerCase()) //para tirar o case sensitive da busca
+    ));
+
     useEffect(() => {
         fetch(`http://localhost:3000/contacts?orderBy=${orderBy}`)
         .then(async(response) => {
@@ -31,17 +37,20 @@ export default function Home() {
     }
 
 
-
+    function handleChangeSearchTherm(event){
+        setSearchTherm(event.target.value)
+    }
 
   return (
     <Container>
 
       <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar contato" />
+        <input value={searchTherm} type="text" placeholder="Pesquisar contato"
+        onChange={handleChangeSearchTherm}/>
       </InputSearchContainer>
       <Header>
-        <h1>{contacts.length}
-            {contacts.length === 1 ? ' contato': ' contatos'}</h1>
+        <h1>{filteredContacts.length}
+            {filteredContacts.length === 1 ? ' contato': ' contatos'}</h1>
         <Link to="/new">Novo Contato</Link>
       </Header>
       <ListHeader orderBy={orderBy}>
@@ -50,7 +59,7 @@ export default function Home() {
             <img src={arrow} alt="Arrow" />
           </button>
         </ListHeader>
-        {contacts.map((contact) => (
+        {filteredContacts.map((contact) => (
         <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">

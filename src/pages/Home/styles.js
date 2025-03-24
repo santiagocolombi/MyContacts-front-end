@@ -36,11 +36,10 @@ margin-top: 32px;
         }
     }
 `;
-export const ListContainer = styled.div`
-    margin-top: 24px;
+export const ListHeader = styled.header`
+margin-top: 24px;
 
-    header{
-    margin-bottom: 8px ;
+margin-bottom: 8px ;
         button{
         background: transparent;
         border: none;
@@ -52,8 +51,10 @@ export const ListContainer = styled.div`
                 font-weight: bold;
                 color: ${({theme})=> theme.colors.primary.main};
             }
-    }
-
+            img{
+                transform: ${(props) => props.orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)'};
+                transition: transform 0.2s ease-in;
+            }
     }
 `;
 export const Card = styled.div`
@@ -83,6 +84,7 @@ export const Card = styled.div`
                 padding: 4px;
                 border-radius: 4px;
                 margin-left: 8px;
+
             }
         }
 
@@ -90,6 +92,7 @@ export const Card = styled.div`
             display:block;
             font-size: 14px;
             color: ${({theme}) => theme.colors.gray[200]}
+
 
         }
     }

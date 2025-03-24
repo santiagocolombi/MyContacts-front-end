@@ -12,3 +12,4 @@ export default function AppRoutes() {
     </RouterRoutes>
   );
 }
+//a ordem importa

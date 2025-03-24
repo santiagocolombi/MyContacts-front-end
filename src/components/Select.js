@@ -11,6 +11,7 @@ border: none;
 outline: none;
 padding: 0 16px;
 font-size: 16px;
+appearance: none; //desativa o css automático de dispositivo mobile, ignora os padãoes e usa os meus
 
 &:focus{
     border-color: 2px solid ${({theme}) => theme.colors.primary.main};

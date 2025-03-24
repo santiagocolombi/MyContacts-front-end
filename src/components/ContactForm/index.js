@@ -3,9 +3,11 @@ import { Form, BuutonContainer } from "./styles";
 import Input from '../input'
 import Select from '../Select';
 import Button from '../Button';
-import PropTypes, { func } from "prop-types";
-import { use, useState} from "react";
+import PropTypes from "prop-types";
+import { useState} from "react";
 import isEmailValid from "../../utils/isEmailValid";
+import useErrors from "../../hooks/useErrors";
+import formatPhone from "../../utils/formatPhone";
 
 
 export default  function ContactForm({buttonLabel}){
@@ -13,7 +15,8 @@ export default  function ContactForm({buttonLabel}){
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [category, setCategory] = useState(''); //controlled component
-    const [errors, setErrors] = useState([]);
+    const {setError, removeError, getErrorMessageByFieldName, errors,} = useErrors();
+    const isFormValid = (name && errors.length === 0 );
 
 
 
@@ -22,60 +25,42 @@ export default  function ContactForm({buttonLabel}){
         setName(event.target.value);
 
         if(!event.target.value){
-            setErrors((prevState) => [
-                ...prevState,
-                {field: 'name', message: 'Nome é obrigatório'},
-
-
-            ]);
+           setError({field:'name', message: 'Nome é obrigatório.'})
         } else {
-            setErrors((prevState) => prevState.filter(
-                (error) => error.field !== 'name',
-
-            ));
-        }
+            removeError('name');
     }
+}
 
     function handleEmailChange(event){
         setEmail(event.target.value);
 
         if(event.target.value && !isEmailValid(event.target.value)){
-            const errorAlreadyExists = errors.find((error) => error.field === 'email' );
-            if(errorAlreadyExists){
-                return;
-            }
-            setErrors((prevState) => [
-                ...prevState,
-                {field: 'email', message: 'E-mail inválido'},
-
-
-            ]);
+            setError({field:'email', message: 'E-mail inválido.'})
 
         } else{
-            setErrors((prevState) => prevState.filter(
-                (error) => error.field !== 'email',
-
-            ));
+                removeError('email');
         }
 
     }
-    function getErrorMessageByFieldName(fieldName){
-        return errors.find((error) => (error) => error.field === fieldName)?.message;
+    function handlePhoneChange(event){
+        setPhone(formatPhone(event.target.value));
     }
+
     function handleSubmit(event){
         event.preventDefault();
     }
     console.log(getErrorMessageByFieldName('name'))
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} noValidate>
            <FormGroup error = {getErrorMessageByFieldName('name')}>
-            <Input value={name} placeholder="Nome"
+            <Input value={name} placeholder="Nome *"
             error = {getErrorMessageByFieldName('name')}
             onChange={hadleNameChange}/>
            </FormGroup>
 
            <FormGroup error = {getErrorMessageByFieldName('email')}>
                 <Input
+                type="email"
                 error = {getErrorMessageByFieldName('email')}
                 placeholder="E-mail"
                 value={email}
@@ -84,8 +69,9 @@ export default  function ContactForm({buttonLabel}){
 
            <FormGroup>
             <Input placeholder="Telefone"
+            maxLength='15'
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}/>
+            onChange={handlePhoneChange}/>
            </FormGroup>
 
            <FormGroup>
@@ -97,7 +83,7 @@ export default  function ContactForm({buttonLabel}){
             </Select>
            </FormGroup>
            <BuutonContainer>
-                <Button type="submit">
+                <Button type="submit" disabled={!isFormValid}>
                  {buttonLabel}
                 </Button>
            </BuutonContainer>
@@ -107,4 +93,4 @@ export default  function ContactForm({buttonLabel}){
 }
 ContactForm.propTypes = {
     buttonLabel: PropTypes.string.isRequired,
-};
+}

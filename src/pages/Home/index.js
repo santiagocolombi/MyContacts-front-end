@@ -3,10 +3,25 @@ import { Link } from "react-router-dom";
 import arrow from '../../assets/images/icons/chevron-up.svg';
 import edit from '../../assets/images/icons/🦆 icon _edit_ (1).svg';
 import trash from '../../assets/images/icons/trash-2.svg';
-import Modal from "../../components/PageHeader/Modal";
-import Loader from "../../components/Loader";
+import { useEffect, useState } from "react";
+
+
 
 export default function Home() {
+    const [contacts, setContacts] = useState([])
+    useEffect(() => {
+        fetch('http://localhost:3000/contacts')
+        .then(async(response) => {
+            const json = await response.json();
+            setContacts(json);
+        })
+        .catch((error) => {
+            console.log('erro', error)
+        });
+
+    },[]);
+
+    console.log(contacts);
   return (
     <Container>
 
@@ -14,7 +29,7 @@ export default function Home() {
         <input type="text" placeholder="Pesquisar contato" />
       </InputSearchContainer>
       <Header>
-        <h1>3 contatos</h1>
+        <h1>1 contato</h1>
         <Link to="/new">Novo Contato</Link>
       </Header>
       <ListContainer>

@@ -16,5 +16,8 @@ appearance: none; //desativa o css automático de dispositivo mobile, ignora os 
 &:focus{
     border-color: 2px solid ${({theme}) => theme.colors.primary.main};
 }
-
+&[disabled]{
+    background-color:  ${({theme}) => theme.colors.gray[100]};
+    border-color: ${({theme}) => theme.colors.gray[200]};
+}
 `;

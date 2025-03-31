@@ -19,5 +19,6 @@ appearance: none; //desativa o css automático de dispositivo mobile, ignora os 
 &[disabled]{
     background-color:  ${({theme}) => theme.colors.gray[100]};
     border-color: ${({theme}) => theme.colors.gray[200]};
+    opacity: 1;
 }
 `;

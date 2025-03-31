@@ -5,11 +5,13 @@ import { Container } from './styles';
 import { Header } from './Header';
 import Routes from '../../Routes';
 import { BrowserRouter } from 'react-router-dom';
+import ToastContainer from '../Toast/ToastContainer';
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyles />
+      <ToastContainer/>
       <BrowserRouter>
         <Container>
           <Header />

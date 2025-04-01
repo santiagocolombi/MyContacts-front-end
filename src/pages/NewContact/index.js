@@ -23,6 +23,7 @@ export default function NewContact (){
             toast({
                 type: 'success',
                 text: 'Ocorreu um error ao cadastrar o contato',
+                duration: 3000,
             })
         } catch{
             toast({

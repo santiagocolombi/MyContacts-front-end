@@ -1,3 +1,4 @@
+import delay from "../utils/delay";
 import HttpClient from "./utils/HttpClient";
 
 class ContactsService {
@@ -8,7 +9,8 @@ class ContactsService {
      listContacts(orderBy = 'asc') {
         return this.httpClient.get(`/contacts?orderBy=${orderBy}`);
     }
-    getContactById(id){
+    async  getContactById(id){
+        await delay(3000)
         return this.httpClient.get(`/contacts/${id}`);
     }
      createContact(contact){

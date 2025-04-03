@@ -4,14 +4,13 @@ import Input from '../input'
 import Select from '../Select';
 import Button from '../Button';
 import PropTypes from "prop-types";
-import { useState, useEffect} from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle} from "react";
 import isEmailValid from "../../utils/isEmailValid";
 import useErrors from "../../hooks/useErrors";
 import formatPhone from "../../utils/formatPhone";
 import CategoriesService from "../../services/CategoriesService";
 
-
-export default  function ContactForm({buttonLabel, onSubmit}){
+const ContactForm  = forwardRef(({buttonLabel, onSubmit, }, ref ) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -21,6 +20,21 @@ export default  function ContactForm({buttonLabel, onSubmit}){
     const {setError, removeError, getErrorMessageByFieldName, errors,} = useErrors();
     const isFormValid = (name && errors.length === 0 );
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useImperativeHandle(ref, ()=> ({
+        setFieldsValues: (contact) => {
+            setName(contact.name ?? '');
+            setEmail(contact.email ?? '');
+            setPhone(formatPhone(contact.phone ?? ''));
+            setCategoryId(contact.category_id ?? '')
+        },
+        resetFields: () =>{
+            setName('');
+            setEmail('');
+            setPhone('');
+            setCategoryId('');
+        }
+    }),[])
 
     useEffect(() => {
         async function loadCategories(){
@@ -70,7 +84,7 @@ export default  function ContactForm({buttonLabel, onSubmit}){
         setIsSubmitting(true);
         await onSubmit({ name, email, phone, categoryId, });
 
-        setIsSubmitting(false)
+        setIsSubmitting(false);
 
 
     }
@@ -125,8 +139,12 @@ export default  function ContactForm({buttonLabel, onSubmit}){
         </Form>
     );
 
-}
+});
+
+
 ContactForm.propTypes = {
     buttonLabel: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
 }
+
+export default ContactForm;

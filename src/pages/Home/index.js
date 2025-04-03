@@ -10,6 +10,8 @@ import ContactsService from "../../services/ContactsService";
 import Button from '../../components/Button'
 import Box from '../../assets/images/icons/box.svg'
 import NothingFound from '../../assets/images/icons/NothingFound.svg'
+import Modal from "../../components/PageHeader/Modal";
+import toast from "../../utils/toast"
 
 
 
@@ -21,7 +23,9 @@ export default function Home() {
     const [searchTherm, setSearchTherm] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [hasError, setHasError] = useState(false);
-
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+    const [contactBeingDeleted, setContactBeingDeleted] = useState(null)
+    const [isLoadingDelete, setIsLoadingDelete] = useState(false)
 
     const filteredContacts = useMemo(() => {
         return contacts.filter((contact) => (
@@ -65,10 +69,51 @@ export default function Home() {
     function handleTryAgain(){
         loadContacts();
     }
+    function handleDeleteContact(contact){
+        setContactBeingDeleted(contact)
+        setIsDeleteModalVisible(true);
+    }
+    function handleCloseDeleteModal(){
+        setIsDeleteModalVisible(false);
+        setContactBeingDeleted(null)
+    }
+    async function handleConfirmDeleteContact(){
+        try{
+            setIsLoadingDelete(true);
+            await ContactsService.deleteContact(contactBeingDeleted.id);
+            setContacts((prevState) => prevState.filter(
+                (contact) => contact.id !== contactBeingDeleted.id,
+            ));
+            handleCloseDeleteModal();
+            toast({
+                type: 'success',
+                text: 'Contato deletado'
+            });
 
+        } catch{
+            toast({
+                type: 'danger',
+                text: 'Ocorreu um erro ao deletar o contato!'
+            });
+
+        } finally{
+            setIsLoadingDelete(false);
+        }
+    }
     return (
         <Container>
             <Loader isLoading={isLoading} />
+            <Modal
+                visible={isDeleteModalVisible}
+                isLoadig={isLoadingDelete}
+                danger
+                title={`Tem certeza que deseja remover o contato '${contactBeingDeleted?.name}'?`}
+                cancelLabel="Cancelar"
+                confirmLabel="Deletar"  //!!!! perguntar para o primo o pq de não estar funcionando o default nas props
+                onCancel={handleCloseDeleteModal}
+                onConfirm={handleConfirmDeleteContact}
+                > Essa ação não poderá ser desfeita</Modal>
+
            {contacts.length > 0 && (
              <InputSearchContainer>
              <input value={searchTherm} type="text" placeholder="Pesquisar contato"
@@ -138,7 +183,9 @@ export default function Home() {
                         <Link to={`/edit/${contact.id}`}>
                             <img src={edit} alt="Edit" />
                         </Link>
-                        <button type="button">
+                        <button
+                        type="button" onClick={()=> handleDeleteContact(contact)}
+                        >
                             <img src={trash} alt="Delete" />
                         </button>
                     </div>

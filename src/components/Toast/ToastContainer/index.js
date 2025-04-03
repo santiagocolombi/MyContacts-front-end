@@ -31,7 +31,7 @@ export default function ToastContainer() {
                 <ToastMessage
                 key={message.id}
                 message={message}
-                onRemoveMessage={handleRemoveMessage    }/>
+                onRemoveMessage={handleRemoveMessage }/>
             )))}
         </Container>
         )

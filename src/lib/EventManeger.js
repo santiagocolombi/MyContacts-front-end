@@ -34,10 +34,10 @@ removeListener(event, listenerToRemove){
 const toastEventManeger = new EventMeneger();
 
 function addToast1(payload){
-    console.log('addtoast listener1 ' , payload)
+
 }
 function addToast2(payload){
-    console.log('addtoast listener2 ' , payload)
+
 }
 toastEventManeger.on('addtoast', addToast1)
 toastEventManeger.on('addtoast', addToast2)

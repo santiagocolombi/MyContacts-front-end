@@ -4,20 +4,15 @@ import ContactForm from "../../components/ContactForm";
 import PageHeader from "../../components/PageHeader";
 import contactsService from "../../services/ContactsService";
 import toast from "../../utils/toast";
+import ContactMapper from "../../services/mappers/ContactMapper";
 
 
 
 export default function NewContact (){
-    const contactFormRef = useRef(null)
-    async function handleSubmit(formData){
+    const contactFormRef = useRef(null) //como o componente ainda não foi criado, o valor é null
+    async function handleSubmit(contact){
         try{
-            const contact = {
-                name:  formData.name,
-                email:  formData.email,
-                phone:  formData.phone,
-                category_id:  formData.categoryId,
 
-            };
 
              await contactsService.createContact(contact);
 

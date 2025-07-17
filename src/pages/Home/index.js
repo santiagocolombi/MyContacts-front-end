@@ -63,7 +63,7 @@ export default function Home() {
 
 
     function handleChangeSearchTherm(event) {
-        setSearchTherm(event.target.value)
+        setSearchTherm(event.target.value)   //para a barra de busca
     }
 
     function handleTryAgain(){
@@ -71,10 +71,10 @@ export default function Home() {
     }
     function handleDeleteContact(contact){
         setContactBeingDeleted(contact)
-        setIsDeleteModalVisible(true);
+        setIsDeleteModalVisible(true); //faz apaarecer o modal de deletar
     }
     function handleCloseDeleteModal(){
-        setIsDeleteModalVisible(false);
+        setIsDeleteModalVisible(false); //para fechar o modal
         setContactBeingDeleted(null)
     }
     async function handleConfirmDeleteContact(){
@@ -116,9 +116,9 @@ export default function Home() {
 
            {contacts.length > 0 && (
              <InputSearchContainer>
-             <input value={searchTherm} type="text" placeholder="Pesquisar contato"
+                 <input value={searchTherm} type="text" placeholder="Pesquisar contato"
                  onChange={handleChangeSearchTherm} />
-         </InputSearchContainer>
+            </InputSearchContainer>
            )}
           <Header justifyContent={(hasError ? 'flex-end' : (
                  contacts.length > 0 ? 'space-between' : 'center'
@@ -162,7 +162,8 @@ export default function Home() {
                       </span>
                   </SearchNotFoundContainer>
                 )}
-             {filteredContacts.length > 0 && (<ListHeader orderBy={orderBy}>
+             {filteredContacts.length > 0 && (
+            <ListHeader orderBy={orderBy}>
                 <button type="button" onClick={handleToggleOrderBy}>
                     <span>Nome</span>
                     <img src={arrow} alt="Arrow" />
@@ -173,7 +174,8 @@ export default function Home() {
                     <div className="info">
                         <div className="contact-name">
                             <strong>{contact.name}</strong>
-                            {contact.category_name && (<small>{contact.category_name}</small>)}
+                            {contact.category_name && (
+                                <small>{contact.category_name}</small>)}
                         </div>
                         <span>{contact.email}</span>
                         <span>{contact.phone}</span>
@@ -184,8 +186,7 @@ export default function Home() {
                             <img src={edit} alt="Edit" />
                         </Link>
                         <button
-                        type="button" onClick={()=> handleDeleteContact(contact)}
-                        >
+                        type="button" onClick={()=> handleDeleteContact(contact)}>
                             <img src={trash} alt="Delete" />
                         </button>
                     </div>

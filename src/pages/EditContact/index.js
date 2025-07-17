@@ -13,7 +13,7 @@ export default function EditContact (){
     const contactFormRef = useRef(null);
 
     const {id} = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate() //redireciona se o contaco não for encontrado
     const IsMounted= useIsMounted();
 
     useEffect(()=> {
@@ -30,14 +30,14 @@ export default function EditContact (){
                     setContactName(contact.name);
                 }
             } catch{
-              if(IsMounted().current){
+              /* if(IsMounted().current){
                 navigate('/');
                 toast({
                  type: 'danger',
                  text: 'Contato não encontrado'
                 });
               }
-
+            */
             }
         }
         loadContact();
@@ -46,17 +46,14 @@ export default function EditContact (){
 
 
 
-        async function handleSubmit(formData){
+        async function handleSubmit(contact){
             try{
-                const contact = {
-                    name:  formData.name,
-                    email:  formData.email,
-                    phone:  formData.phone,
-                    category_id:  formData.categoryId,
 
-                };
+
 
                  const updatedContactData = await contactsService.updateContact(id, contact);
+
+
                  setContactName(updatedContactData.name);
                 toast({
                     type: 'success',
@@ -76,7 +73,7 @@ export default function EditContact (){
         <>
         <Loader isLoading={isLoading}/>
         <PageHeader title={isLoading ? 'Carregando...' : `Editar ${contactName}`}/>
-        <ContactForm ref={contactFormRef}
+        <ContactForm ref={contactFormRef} //é oque faz os dados do editar ficarem no form
          buttonLabel="Salvar alterações"
         onSubmit={handleSubmit}/>
         </>

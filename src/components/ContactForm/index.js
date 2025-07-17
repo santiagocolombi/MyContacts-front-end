@@ -9,7 +9,7 @@ import isEmailValid from "../../utils/isEmailValid";
 import useErrors from "../../hooks/useErrors";
 import formatPhone from "../../utils/formatPhone";
 import CategoriesService from "../../services/CategoriesService";
-
+//Contactform, NewContact, EditContact , entender eles com uso de setFields, useImperativeHandle, IsMounted ...
 const ContactForm  = forwardRef(({buttonLabel, onSubmit, }, ref ) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');

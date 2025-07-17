@@ -9,7 +9,7 @@ Spinner.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
 };
-
+                                     //não funcionou nada praticamente
 Spinner.defaultProps = {
   width: 100,
   height: 100,

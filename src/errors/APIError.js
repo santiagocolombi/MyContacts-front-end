@@ -1,4 +1,4 @@
-export default class APIError extends Error{
+export default class APIError extends Error{   //Error nativo do js
     constructor(response, body){
         super( ); // Erro.constructor
         this.name  = 'APIError';

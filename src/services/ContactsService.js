@@ -7,12 +7,15 @@ class ContactsService {
         this.httpClient = new HttpClient('http://localhost:3000');
     }
 
-     listContacts(orderBy = 'asc') {
-        return this.httpClient.get(`/contacts?orderBy=${orderBy}`);
-    }
-      getContactById(id){
+     async listContacts(orderBy = 'asc') {
+        const contacts =  await this.httpClient.get(`/contacts?orderBy=${orderBy}`);
 
-        return this.httpClient.get(`/contacts/${id}`);
+        return contacts.map(ContactMapper.toDomain)
+    }
+      async getContactById(id){
+
+        const contact = await this.httpClient.get(`/contacts/${id}`);
+        return ContactMapper.toDomain(contact)
     }
      createContact(contact){
         const body = ContactMapper.toPersistence(contact)

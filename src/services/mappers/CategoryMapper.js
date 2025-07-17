@@ -3,7 +3,7 @@ class CategoryMapper{
         return{
             id: persistenceCategory.id,
             name: persistenceCategory.name,
-        }
+        };
     }
 
 }

@@ -1,4 +1,4 @@
-import { Card } from "../pages/Home/styles";
+
 import CategoryMapper from "./mappers/CategoryMapper";
 import HttpClient from "./utils/HttpClient";
 

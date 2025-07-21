@@ -1,5 +1,5 @@
 import { Routes as RouterRoutes, Route } from "react-router-dom";
-import EditContact from "./pages/EditContact";
+import {Container as EditContact} from "./pages/EditContact";
 import Home from "./pages/Home";
 import NewContact from "./pages/NewContact";
 
@@ -8,7 +8,7 @@ export default function AppRoutes() {
     <RouterRoutes>
       <Route path="/" element={<Home />} />
       <Route path="/new" element={<NewContact />} />
-      <Route path="/edit/:id" element={<EditContact />} />
+      <Route path="/edit/:id" element={<EditContact/>} />
     </RouterRoutes>
   );
 }

@@ -1,3 +1,6 @@
+// A parte de Container vai servir para resolver a lógica do meu componente
+// a de Presentation serve para apenas mostrar os componentes para o usuário
+
 import { useParams,  useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import contactsService from "../../services/ContactsService";

@@ -7,7 +7,7 @@ class ContactMapper{
                 name:  domainContact.name,
                 email:  domainContact.email,
                 phone:  domainContact.phone,
-                category_id:  domainContact.categoryId,
+                category_id:  domainContact.categoryId,  //mapper dos dados do front para o banco
 
             }
     }
@@ -21,7 +21,7 @@ class ContactMapper{
             category :{
 
             id: persistenceContact.category_id,
-            name: persistenceContact.category_name,
+            name: persistenceContact.category_name,  //aqui é o contrário
         },
         }
     }
